@@ -10,16 +10,21 @@ html {
 }
 
 body {
-    padding: 0;
     margin: 0;
+    padding: 0;
     font-family: "Public Sans", sans-serif;
     font-size: $font-sm;
     font-weight: 300;
     color: $grayishBlue;
     line-height: 1.3;
+    overflow-x: hidden;
 
     @include breakpoint-up(large) {
         font-size: $font-med;
+    }
+
+    &.noscroll {
+        overflow: hidden;
     }
 }
 
@@ -63,11 +68,12 @@ a:hover {
     text-decoration: none;
 }
 
+// Spacing
 .container {
     max-width: 69.375rem;
     margin: 0 auto;
 
-    &-pall {
+    &--pall {
         padding-top: 4.375rem;
         padding-right: 1.5rem;
         padding-bottom: 4.375rem;
@@ -78,13 +84,22 @@ a:hover {
             padding-bottom: 6rem;
         }
     }
+    &--py {
+        padding-top: 4.375rem;
+        padding-bottom: 4.375rem;
 
+        @include breakpoint-up(large) {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+    }
     &--px {
         padding-right: 1.5rem;
         padding-left: 1.5rem;
     }
     &--pt {
         padding-top: 4.375rem;
+
         @include breakpoint-up(large) {
             padding-top: 6rem;
         }
@@ -94,6 +109,7 @@ a:hover {
     }
     &--pb {
         padding-bottom: 4.375rem;
+
         @include breakpoint-up(large) {
             padding-bottom: 6rem;
         }
@@ -103,15 +119,18 @@ a:hover {
     }
 }
 
+// Flexbox
 .flex {
     display: flex;
 
     &-jc-sb {
         justify-content: space-between;
     }
+
     &-jc-c {
         justify-content: center;
     }
+
     &-ai-c {
         align-items: center;
     }
@@ -120,18 +139,33 @@ a:hover {
 // Buttons
 button,
 .button {
+    position: relative;
     display: inline-block;
-    padding: 0.875rem 1.875rem;
-    background: linear-gradient(to right, $limeGreen, $brightCyan);
+    padding: 0.875rem 2.1875rem;
+    background-image: linear-gradient(to right, $limeGreen, $brightCyan);
     border: 0;
     border-radius: 50px;
     cursor: pointer;
     color: $white;
     font-weight: 400;
     font-size: $font-sm;
+    transition: opacity 300ms ease-in-out;
+    overflow: hidden;
 
-    &:hover {
-        opacity: 0.75;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.25);
+        opacity: 0;
+        transition: opacity 150ms ease-in-out;
+    }
+
+    &:hover::before {
+        opacity: 1;
     }
 }
 
